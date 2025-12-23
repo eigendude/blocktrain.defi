@@ -1,0 +1,102 @@
+/*
+ * Copyright (C) 2025-2026 blocktrain.defi
+ * https://github.com/blocktrain/blocktrain-dapp
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * See the file LICENSE.txt for more information.
+ */
+
+"use client";
+
+import { useMiniKit } from "@coinbase/onchainkit/minikit";
+import { Wallet } from "@coinbase/onchainkit/wallet";
+import Image from "next/image";
+import { useEffect } from "react";
+import { JSX } from "react/jsx-runtime";
+
+// import { useQuickAuth } from "@coinbase/onchainkit/minikit";
+import { VideoBackground } from "./components/VideoBackground";
+import styles from "./page.module.css";
+
+type ComponentLink = {
+  name: string;
+  url: string;
+};
+
+export default function Home(): JSX.Element {
+  // If you need to verify the user's identity, you can use the useQuickAuth hook.
+  // This hook will verify the user's signature and return the user's FID. You can update
+  // this to meet your needs. See the /app/api/auth/route.ts file for more details.
+  // Note: If you don't need to verify the user's identity, you can get their FID and other user data
+  // via `useMiniKit().context?.user`.
+  // const { data, isLoading, error } = useQuickAuth<{
+  //   userFid: string;
+  // }>("/api/auth");
+
+  const { setMiniAppReady, isMiniAppReady }: ReturnType<typeof useMiniKit> =
+    useMiniKit();
+
+  useEffect((): void => {
+    if (!isMiniAppReady) {
+      setMiniAppReady();
+    }
+  }, [setMiniAppReady, isMiniAppReady]);
+
+  return (
+    <div className={styles.page}>
+      <VideoBackground />
+
+      <div className={styles.container}>
+        <header className={styles.headerWrapper}>
+          <Wallet />
+        </header>
+
+        <div className={styles.content}>
+          <Image
+            priority
+            src="/sphere.svg"
+            alt="Sphere"
+            width={200}
+            height={200}
+          />
+          <h1 className={styles.title}>blocktrain.defi</h1>
+
+          <h2 className={styles.componentsTitle}>Explore Components</h2>
+
+          <ul className={styles.components}>
+            {(
+              [
+                {
+                  name: "Transaction",
+                  url: "https://docs.base.org/onchainkit/transaction/transaction",
+                },
+                {
+                  name: "Swap",
+                  url: "https://docs.base.org/onchainkit/swap/swap",
+                },
+                {
+                  name: "Checkout",
+                  url: "https://docs.base.org/onchainkit/checkout/checkout",
+                },
+                {
+                  name: "Wallet",
+                  url: "https://docs.base.org/onchainkit/wallet/wallet",
+                },
+                {
+                  name: "Identity",
+                  url: "https://docs.base.org/onchainkit/identity/identity",
+                },
+              ] satisfies ComponentLink[]
+            ).map((component: ComponentLink) => (
+              <li key={component.name}>
+                <a target="_blank" rel="noreferrer" href={component.url}>
+                  {component.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
