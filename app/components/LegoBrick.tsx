@@ -38,11 +38,13 @@ export function LegoBrick(): JSX.Element {
     renderer.shadowMap.enabled = true;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(0x000000, 0);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
     renderer.domElement.classList.add(styles.canvas);
     container.appendChild(renderer.domElement);
 
     const scene: THREE.Scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.14);
+    scene.fog = new THREE.FogExp2(0x000000, 0.06);
 
     const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
       35,
@@ -53,29 +55,37 @@ export function LegoBrick(): JSX.Element {
     camera.position.set(6, 4, 6);
 
     const ambientLight: THREE.AmbientLight = new THREE.AmbientLight(
-      0xffffff,
-      0.5,
+      0xfff0e0,
+      0.8,
     );
     scene.add(ambientLight);
 
     const keyLight: THREE.DirectionalLight = new THREE.DirectionalLight(
-      0xfff4e6,
-      1.1,
+      0xfff4d5,
+      1.35,
     );
     keyLight.position.set(4, 6, 3);
     keyLight.castShadow = true;
     scene.add(keyLight);
 
-    const rimLight: THREE.PointLight = new THREE.PointLight(0xff1d1d, 0.5, 20);
+    const rimLight: THREE.PointLight = new THREE.PointLight(0xff2b2b, 0.85, 24);
     rimLight.position.set(-4, 3, -2);
     scene.add(rimLight);
 
     const fillLight: THREE.HemisphereLight = new THREE.HemisphereLight(
-      0xff9999,
-      0x0f0f0f,
-      0.45,
+      0xffcccc,
+      0x1a1a1a,
+      0.65,
     );
     scene.add(fillLight);
+
+    const bounceLight: THREE.PointLight = new THREE.PointLight(
+      0xffd6aa,
+      0.4,
+      18,
+    );
+    bounceLight.position.set(0.5, -2.5, 1.5);
+    scene.add(bounceLight);
 
     const brickGroup: THREE.Group = new THREE.Group();
     scene.add(brickGroup);
@@ -86,9 +96,9 @@ export function LegoBrick(): JSX.Element {
     const redMaterial: THREE.MeshStandardMaterial =
       new THREE.MeshStandardMaterial({
         color: 0xc00b0b,
-        metalness: 0.32,
-        roughness: 0.35,
-        envMapIntensity: 0.4,
+        metalness: 0.28,
+        roughness: 0.28,
+        envMapIntensity: 0.65,
       });
     materials.push(redMaterial);
 
@@ -136,9 +146,9 @@ export function LegoBrick(): JSX.Element {
     brickGroup.rotation.set(0.45, -0.25, 0.35);
 
     const rotationVelocity: THREE.Vector3 = new THREE.Vector3(
-      0.002 + Math.random() * 0.001,
-      0.0025 + Math.random() * 0.0015,
-      0.001 + Math.random() * 0.00075,
+      0.0028 + Math.random() * 0.0012,
+      0.0034 + Math.random() * 0.0014,
+      0.0016 + Math.random() * 0.0009,
     );
 
     const clock: THREE.Clock = new THREE.Clock();
@@ -162,19 +172,19 @@ export function LegoBrick(): JSX.Element {
       const delta: number = clock.getDelta();
 
       rotationVelocity.x = THREE.MathUtils.clamp(
-        rotationVelocity.x + (Math.random() - 0.5) * 0.00035,
-        0.0012,
-        0.0045,
+        rotationVelocity.x + (Math.random() - 0.5) * 0.00045,
+        0.0018,
+        0.0058,
       );
       rotationVelocity.y = THREE.MathUtils.clamp(
-        rotationVelocity.y + (Math.random() - 0.5) * 0.00045,
-        0.0015,
-        0.0055,
+        rotationVelocity.y + (Math.random() - 0.5) * 0.0005,
+        0.0022,
+        0.0065,
       );
       rotationVelocity.z = THREE.MathUtils.clamp(
-        rotationVelocity.z + (Math.random() - 0.5) * 0.00025,
-        0.0005,
-        0.0035,
+        rotationVelocity.z + (Math.random() - 0.5) * 0.00035,
+        0.001,
+        0.0042,
       );
 
       brickGroup.rotation.x += rotationVelocity.x * delta * 60;
