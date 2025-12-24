@@ -15,13 +15,9 @@ import { JSX } from "react/jsx-runtime";
 
 // import { useQuickAuth } from "@coinbase/onchainkit/minikit";
 import { LegoBrick } from "./components/LegoBrick";
+import { RulesModal } from "./components/RulesModal";
 import { VideoBackground } from "./components/VideoBackground";
 import styles from "./page.module.css";
-
-type Rule = {
-  name: string;
-  description: string;
-};
 
 export default function Home(): JSX.Element {
   // If you need to verify the user's identity, you can use the useQuickAuth hook.
@@ -35,28 +31,7 @@ export default function Home(): JSX.Element {
 
   const { setMiniAppReady, isMiniAppReady }: ReturnType<typeof useMiniKit> =
     useMiniKit();
-  const [isRulesOpen, setIsRulesOpen] = useState(false);
-
-  const rules: Rule[] = [
-    {
-      name: "StudSupply",
-      description: "Deposit into the STUD pool to earn yield.",
-    },
-    {
-      name: "StudLend",
-      description:
-        "Lend your STUD deposit to earn more yield and unlock borrowing.",
-    },
-    {
-      name: "TrainMint",
-      description:
-        "Mint TRAIN against your locked STUD deposit; burn TRAIN to repay.",
-    },
-    {
-      name: "TrainStake",
-      description: "Stake concentrated TRAIN liquidity for maximum yield.",
-    },
-  ];
+  const [isRulesOpen, setIsRulesOpen] = useState<boolean>(false);
 
   useEffect((): void => {
     if (!isMiniAppReady) {
@@ -87,34 +62,7 @@ export default function Home(): JSX.Element {
         </div>
       </div>
 
-      {isRulesOpen ? (
-        <div className={styles.modalOverlay} role="dialog" aria-modal="true">
-          <div className={styles.modal}>
-            <div className={styles.modalHeader}>
-              <h3 className={styles.modalTitle}>BlockTrain rules</h3>
-              <button
-                type="button"
-                className={styles.closeButton}
-                aria-label="Close rules"
-                onClick={() => setIsRulesOpen(false)}
-              >
-                ×
-              </button>
-            </div>
-
-            <ol className={styles.rulesList}>
-              {rules.map((rule: Rule) => (
-                <li key={rule.name}>
-                  <span className={styles.ruleName}>{rule.name}</span>
-                  <span className={styles.ruleDescription}>
-                    {rule.description}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      ) : null}
+      <RulesModal isOpen={isRulesOpen} onClose={() => setIsRulesOpen(false)} />
     </div>
   );
 }
