@@ -1,0 +1,51 @@
+{
+  "name": "@blocktrain/blocktrain-dapp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "audit-ci": "audit-ci --config audit-ci.json",
+    "build": "pnpm build:next",
+    "build:next": "next build --turbopack",
+    "dev": "next dev --turbopack",
+    "format": "pnpm format:prettier && pnpm format:eslint",
+    "format:eslint": "eslint --fix .",
+    "format:prettier": "prettier --write .",
+    "lint": "pnpm lint:prettier && pnpm lint:eslint && pnpm lint:next",
+    "lint:eslint": "eslint .",
+    "lint:next": "next lint",
+    "lint:prettier": "prettier --check .",
+    "start": "next start --turbopack"
+  },
+  "dependencies": {
+    "@coinbase/onchainkit": "^1.1.2",
+    "@farcaster/miniapp-sdk": "^0.2.1",
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@tanstack/react-query": "^5.90.12",
+    "next": "^15.5.9",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "shaka-player": "^4.16.12",
+    "three": "^0.182.0",
+    "viem": "^2.43.3",
+    "wagmi": "^2.19.5"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
+    "@farcaster/quick-auth": "^0.0.8",
+    "@next/eslint-plugin-next": "^15.5.9",
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.182.0",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.50.1",
+    "audit-ci": "^7.1.0",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^15.5.9",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "prettier": "^3.7.4",
+    "prettier-plugin-pkg": "^0.21.2",
+    "typescript": "^5.9.3"
+  }
+}
