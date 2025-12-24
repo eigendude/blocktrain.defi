@@ -10,62 +10,82 @@
 
 import type { JSX } from "react";
 import { useEffect, useRef } from "react";
-import shaka from "shaka-player/dist/shaka-player.ui";
 
 import styles from "./VideoBackground.module.css";
 
-const DEMO_URL =
+type ShakaModule = typeof import("shaka-player/dist/shaka-player.compiled");
+type ShakaNamespace = ShakaModule["default"];
+type ShakaPlayerConstructor = ShakaNamespace["Player"];
+
+const DEMO_URL: string =
   "https://stream.mux.com/x1s1daoUyt1HAHHPpqyrIM7G501dbX1Nbx9ES01pTE8rE.m3u8";
 
 export function VideoBackground(): JSX.Element | null {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (!videoRef.current) {
+    const videoElement: HTMLVideoElement | null = videoRef.current;
+
+    if (videoElement === null) {
       return undefined;
     }
 
-    shaka.polyfill.installAll();
-
-    if (!shaka.Player.isBrowserSupported()) {
-      console.error("Shaka Player is not supported in this browser.");
-      return undefined;
-    }
-
-    const player = new shaka.Player(videoRef.current);
-
-    player.configure({
-      streaming: {
-        useNativeHlsOnSafari: false,
-      },
-    });
+    let isCancelled: boolean = false;
+    let player: InstanceType<ShakaPlayerConstructor> | null = null;
 
     const initializePlayer = async (): Promise<void> => {
       try {
-        await player.load(DEMO_URL);
-        const videoElement = videoRef.current;
+        const shakaModule: ShakaModule =
+          await import("shaka-player/dist/shaka-player.compiled");
+        const shaka: ShakaNamespace = shakaModule.default;
 
-        if (!videoElement) {
+        if (isCancelled) {
           return;
         }
 
-        videoElement.muted = true;
-        const playPromise = videoElement.play();
+        shaka.polyfill.installAll();
 
-        if (playPromise) {
-          await playPromise.catch((error) => {
-            console.error("Autoplay was blocked:", error);
-          });
+        if (!shaka.Player.isBrowserSupported()) {
+          console.error("Shaka Player is not supported in this browser.");
+          return;
         }
-      } catch (error) {
+
+        player = new shaka.Player(videoElement);
+
+        player.configure({
+          streaming: {
+            useNativeHlsOnSafari: false,
+          },
+        });
+
+        if (isCancelled) {
+          await player.destroy();
+          return;
+        }
+
+        await player.load(DEMO_URL);
+
+        videoElement.muted = true;
+        videoElement.playsInline = true;
+
+        const playPromise: Promise<void> = videoElement.play();
+
+        await playPromise.catch((error: unknown) => {
+          console.error("Autoplay was blocked:", error);
+        });
+      } catch (error: unknown) {
         console.error("Error initializing Shaka Player:", error);
       }
     };
 
     void initializePlayer();
 
-    return () => {
-      void player.destroy();
+    return (): void => {
+      isCancelled = true;
+
+      if (player !== null) {
+        void player.destroy();
+      }
     };
   }, []);
 
