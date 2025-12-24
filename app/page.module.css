@@ -6,7 +6,15 @@
  * See the file LICENSE.txt for more information.
  */
 
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
 .container {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100vh;
