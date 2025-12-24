@@ -19,6 +19,7 @@ type ShakaPlayerConstructor = ShakaNamespace["Player"];
 
 const DEMO_URL: string =
   "https://stream.mux.com/x1s1daoUyt1HAHHPpqyrIM7G501dbX1Nbx9ES01pTE8rE.m3u8";
+const INITIAL_BANDWIDTH_ESTIMATE: number = 8_000_000;
 
 export function VideoBackground(): JSX.Element | null {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -53,6 +54,9 @@ export function VideoBackground(): JSX.Element | null {
         player = new shaka.Player(videoElement);
 
         player.configure({
+          abr: {
+            defaultBandwidthEstimate: INITIAL_BANDWIDTH_ESTIMATE,
+          },
           streaming: {
             useNativeHlsOnSafari: false,
           },
