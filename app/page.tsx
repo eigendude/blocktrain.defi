@@ -10,18 +10,13 @@
 
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import { Wallet } from "@coinbase/onchainkit/wallet";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 
 // import { useQuickAuth } from "@coinbase/onchainkit/minikit";
+import { LegoBrick } from "./components/LegoBrick";
 import { VideoBackground } from "./components/VideoBackground";
 import styles from "./page.module.css";
-
-type ComponentLink = {
-  name: string;
-  url: string;
-};
 
 type Rule = {
   name: string;
@@ -79,13 +74,7 @@ export default function Home(): JSX.Element {
         </header>
 
         <div className={styles.content}>
-          <Image
-            priority
-            src="/sphere.svg"
-            alt="Sphere"
-            width={200}
-            height={200}
-          />
+          <LegoBrick />
           <h1 className={styles.title}>blocktrain.defi</h1>
 
           <button
