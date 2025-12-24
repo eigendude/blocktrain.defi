@@ -14,7 +14,11 @@ import { OnchainKitProvider } from "@coinbase/onchainkit";
 import { ReactNode } from "react";
 import { base } from "wagmi/chains";
 
-export function RootProvider({ children }: { children: ReactNode }) {
+export function RootProvider({
+  children,
+}: {
+  children: ReactNode;
+}): JSX.Element {
   return (
     <OnchainKitProvider
       apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}

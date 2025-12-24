@@ -36,12 +36,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const inter = Inter({
+const inter: ReturnType<typeof Inter> = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const sourceCodePro = Source_Code_Pro({
+const sourceCodePro: ReturnType<typeof Source_Code_Pro> = Source_Code_Pro({
   variable: "--font-source-code-pro",
   subsets: ["latin"],
 });
@@ -50,7 +50,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): JSX.Element {
   return (
     <RootProvider>
       <html lang="en">

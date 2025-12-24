@@ -6,17 +6,47 @@
  * See the file LICENSE.txt for more information.
  */
 
-const ROOT_URL =
+const ROOT_URL: string =
   process.env.NEXT_PUBLIC_URL ||
   (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`) ||
   "http://localhost:3000";
+
+type MiniAppConfig = {
+  accountAssociation: {
+    header: string;
+    payload: string;
+    signature: string;
+  };
+  baseBuilder: {
+    ownerAddress: string;
+  };
+  miniapp: {
+    version: string;
+    name: string;
+    subtitle: string;
+    description: string;
+    screenshotUrls: string[];
+    iconUrl: string;
+    splashImageUrl: string;
+    splashBackgroundColor: string;
+    homeUrl: string;
+    webhookUrl: string;
+    primaryCategory: string;
+    tags: string[];
+    heroImageUrl: string;
+    tagline: string;
+    ogTitle: string;
+    ogDescription: string;
+    ogImageUrl: string;
+  };
+};
 
 /**
  * MiniApp configuration object. Must follow the mini app manifest specification.
  *
  * @see {@link https://docs.base.org/mini-apps/features/manifest}
  */
-export const minikitConfig = {
+export const minikitConfig: Readonly<MiniAppConfig> = {
   accountAssociation: {
     header: "",
     payload: "",
