@@ -25,21 +25,21 @@ export type RulesModalProps = {
 const RULES: Rule[] = [
   {
     name: "StudSupply",
-    description: "Deposit into the STUD pool to earn yield.",
+    description: "Deposit into the $STUD pool to earn yield.",
   },
   {
     name: "StudLend",
     description:
-      "Lend your STUD deposit to earn more yield and unlock borrowing.",
+      "Lend your $STUD deposit to earn more yield and unlock borrowing.",
   },
   {
     name: "TrainMint",
     description:
-      "Mint TRAIN against your locked STUD deposit; burn TRAIN to repay.",
+      "Mint $TRAIN against your locked $STUD deposit; burn $TRAIN to repay.",
   },
   {
     name: "TrainStake",
-    description: "Stake concentrated TRAIN liquidity for maximum yield.",
+    description: "Stake concentrated $TRAIN liquidity for maximum yield.",
   },
 ];
 
