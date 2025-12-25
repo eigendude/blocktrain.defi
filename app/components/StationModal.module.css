@@ -74,7 +74,7 @@
   transform: translateY(0);
 }
 
-.rulesList {
+.stationList {
   list-style: decimal inside;
   display: flex;
   flex-direction: column;
@@ -84,7 +84,7 @@
   overflow-y: auto;
 }
 
-.rulesList li {
+.stationList li {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.25rem;
@@ -94,12 +94,12 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.ruleName {
+.stationName {
   font-weight: 700;
   font-size: clamp(1rem, 3.5vw, 1.1rem);
 }
 
-.ruleDescription {
+.stationDescription {
   color: rgba(255, 255, 255, 0.85);
   font-size: clamp(0.95rem, 3.25vw, 1rem);
 }

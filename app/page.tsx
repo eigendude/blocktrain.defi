@@ -15,7 +15,7 @@ import { JSX } from "react/jsx-runtime";
 
 // import { useQuickAuth } from "@coinbase/onchainkit/minikit";
 import { LegoBrick } from "./components/LegoBrick";
-import { RulesModal } from "./components/RulesModal";
+import { StationModal } from "./components/StationModal";
 import { VideoBackground } from "./components/VideoBackground";
 import styles from "./page.module.css";
 
@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
 
   const { setMiniAppReady, isMiniAppReady }: ReturnType<typeof useMiniKit> =
     useMiniKit();
-  const [isRulesOpen, setIsRulesOpen] = useState<boolean>(false);
+  const [isStationModalOpen, setIsStationModalOpen] = useState<boolean>(false);
 
   useEffect((): void => {
     if (!isMiniAppReady) {
@@ -54,15 +54,18 @@ export default function Home(): JSX.Element {
 
           <button
             type="button"
-            className={styles.rulesButton}
-            onClick={() => setIsRulesOpen(true)}
+            className={styles.stationButton}
+            onClick={() => setIsStationModalOpen(true)}
           >
-            Rules
+            Train Depots
           </button>
         </div>
       </div>
 
-      <RulesModal isOpen={isRulesOpen} onClose={() => setIsRulesOpen(false)} />
+      <StationModal
+        isOpen={isStationModalOpen}
+        onClose={() => setIsStationModalOpen(false)}
+      />
     </div>
   );
 }

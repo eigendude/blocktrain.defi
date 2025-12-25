@@ -54,7 +54,7 @@
   text-decoration: underline;
 }
 
-.rulesButton {
+.stationButton {
   margin-top: 2rem;
   padding: 0.85rem 1.5rem;
   border-radius: 999px;
@@ -71,14 +71,14 @@
   cursor: pointer;
 }
 
-.rulesButton:hover,
-.rulesButton:focus-visible {
+.stationButton:hover,
+.stationButton:focus-visible {
   transform: translateY(-1px);
   background: rgba(0, 0, 0, 0.75);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
-.rulesButton:active {
+.stationButton:active {
   transform: translateY(0);
 }
 
