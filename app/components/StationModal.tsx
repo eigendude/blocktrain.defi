@@ -8,7 +8,7 @@
 
 "use client";
 
-import type { JSX } from "react";
+import { type JSX, useState } from "react";
 
 import styles from "./StationModal.module.css";
 
@@ -47,6 +47,23 @@ export function StationModal({
   isOpen,
   onClose,
 }: StationModalProps): JSX.Element {
+  const [activeStation, setActiveStation] = useState<Station | null>(null);
+  const modalTitle: string =
+    activeStation !== null ? activeStation.name : "BlockTrain Stations";
+
+  const handleClose = (): void => {
+    if (activeStation !== null) {
+      setActiveStation(null);
+      return;
+    }
+
+    onClose();
+  };
+
+  const handleStationSelect = (station: Station): void => {
+    setActiveStation(station);
+  };
+
   if (!isOpen) {
     return <></>;
   }
@@ -55,27 +72,57 @@ export function StationModal({
     <div className={styles.modalOverlay} role="dialog" aria-modal="true">
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
-          <h3 className={styles.modalTitle}>BlockTrain Stations</h3>
+          <h3 className={styles.modalTitle}>{modalTitle}</h3>
           <button
             type="button"
             className={styles.closeButton}
-            aria-label="Close station list"
-            onClick={onClose}
+            aria-label={
+              activeStation !== null
+                ? "Go back to station list"
+                : "Close station list"
+            }
+            onClick={handleClose}
           >
-            ×
+            {activeStation !== null ? "←" : "×"}
           </button>
         </div>
 
-        <ol className={styles.stationList}>
-          {STATIONS.map((station: Station) => (
-            <li key={station.name}>
-              <span className={styles.stationName}>{station.name}</span>
-              <span className={styles.stationDescription}>
-                {station.description}
-              </span>
-            </li>
-          ))}
-        </ol>
+        <div className={styles.panelContainer}>
+          <div
+            className={`${styles.panel} ${
+              activeStation === null ? styles.panelVisible : styles.panelHidden
+            }`}
+          >
+            <ol className={styles.stationList}>
+              {STATIONS.map((station: Station) => (
+                <li key={station.name}>
+                  <button
+                    type="button"
+                    className={styles.stationButton}
+                    onClick={(): void => handleStationSelect(station)}
+                  >
+                    <span className={styles.stationName}>{station.name}</span>
+                    <span className={styles.stationDescription}>
+                      {station.description}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div
+            className={`${styles.panel} ${styles.detailPanel} ${
+              activeStation !== null ? styles.panelVisible : styles.panelHidden
+            }`}
+          >
+            {activeStation !== null ? (
+              <div className={styles.detailContent}>
+                <p className={styles.detailStationName}>{activeStation.name}</p>
+              </div>
+            ) : null}
+          </div>
+        </div>
       </div>
     </div>
   );
