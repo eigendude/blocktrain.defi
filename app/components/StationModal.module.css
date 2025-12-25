@@ -74,6 +74,35 @@
   transform: translateY(0);
 }
 
+.panelContainer {
+  position: relative;
+  min-height: 220px;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+  pointer-events: none;
+}
+
+.panelVisible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.panelHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .stationList {
   list-style: decimal inside;
   display: flex;
@@ -85,6 +114,11 @@
 }
 
 .stationList li {
+  list-style-position: inside;
+}
+
+.stationButton {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.25rem;
@@ -92,6 +126,24 @@
   background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.stationButton:hover,
+.stationButton:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.stationButton:active {
+  transform: translateY(0);
 }
 
 .stationName {
@@ -102,6 +154,28 @@
 .stationDescription {
   color: rgba(255, 255, 255, 0.85);
   font-size: clamp(0.95rem, 3.25vw, 1rem);
+}
+
+.detailPanel {
+  background: #000;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1.5rem;
+  display: grid;
+  place-items: center;
+}
+
+.detailContent {
+  text-align: center;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.detailStationName {
+  font-size: clamp(1.5rem, 4vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0;
 }
 
 @media (max-width: 600px) {
