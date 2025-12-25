@@ -1,6 +1,8 @@
 {
-  "name": "@blocktrain/blocktrain-dapp",
-  "version": "1.0.0",
+  "name": "@blocktrain/dapp",
+  "version": "0.9.0",
+  "description": "BlockTrain Dapp",
+  "license": "GPL-3.0-or-later",
   "private": true,
   "scripts": {
     "audit-ci": "audit-ci --config audit-ci.json",
@@ -43,6 +45,7 @@
     "eslint": "^9.39.2",
     "eslint-config-next": "^15.5.9",
     "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "prettier": "^3.7.4",
     "prettier-plugin-pkg": "^0.21.2",
