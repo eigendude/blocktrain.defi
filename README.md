@@ -1,6 +1,6 @@
 # README
 
-blocktrain.defi is a yield farming game that simulates macroeconomics, DeFi and NFT lending. Players deploy digital assets to maximize returns through lending, staking and trading in a way that educates on crypto-economic principles in a risk-managed environment.
+blocktrain.fi is a yield farming game that simulates macroeconomics, DeFi and NFT lending. Players deploy digital assets to maximize returns through lending, staking and trading in a way that educates on crypto-economic principles in a risk-managed environment.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-onchain`](https://www.npmjs.com/package/create-onchain).
 

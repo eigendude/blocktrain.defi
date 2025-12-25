@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025-2026 blocktrain.defi
+ * Copyright (C) 2025-2026 blocktrain.fi
  * https://github.com/blocktrain/blocktrain-dapp
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -50,14 +50,14 @@ export default function Home(): JSX.Element {
 
         <div className={styles.content}>
           <LegoBrick />
-          <h1 className={styles.title}>blocktrain.defi</h1>
+          <h1 className={styles.title}>blocktrain.fi</h1>
 
           <button
             type="button"
             className={styles.stationButton}
             onClick={() => setIsStationModalOpen(true)}
           >
-            Train Depots
+            Train Stations
           </button>
         </div>
       </div>

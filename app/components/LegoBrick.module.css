@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025-2026 blocktrain.defi
+ * Copyright (C) 2025-2026 blocktrain.fi
  * https://github.com/blocktrain/blocktrain-dapp
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
